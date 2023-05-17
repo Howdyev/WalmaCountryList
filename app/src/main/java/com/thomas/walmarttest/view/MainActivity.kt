@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import com.thomas.walmarttest.R
 import com.thomas.walmarttest.common.isNetworkAvailable
 import com.thomas.walmarttest.databinding.ActivityMainBinding
-import com.thomas.walmarttest.model.Country
 import com.thomas.walmarttest.model.Repository
 import com.thomas.walmarttest.model.Resource
 import com.thomas.walmarttest.model.remote.ApiService
@@ -17,8 +16,8 @@ import com.thomas.walmarttest.viewmodel.MainVMFactory
 import com.thomas.walmarttest.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
-    val viewModel: MainViewModel by viewModels {
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels {
         MainVMFactory(Repository(ApiService.getInstance()))
     }
 
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun loadCountries() {
+    private fun loadCountries() {
         if (!isNetworkAvailable(this)) {
             binding.tvMsg.text = getString(R.string.error_no_internet)
             binding.retryGroup.visibility = VISIBLE
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.loadCountries()
     }
 
-    fun setupObserver() {
+    private fun setupObserver() {
         viewModel.countryList.observe(this) {
             when (it) {
                 is Resource.Loading -> {

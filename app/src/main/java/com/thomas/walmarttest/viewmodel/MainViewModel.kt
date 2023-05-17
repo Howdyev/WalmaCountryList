@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thomas.walmarttest.common.Constants.EMPTY_SERVER_RESPONSE
+import com.thomas.walmarttest.common.Constants.UNKNOWN_ERROR
 import com.thomas.walmarttest.common.getInfo
 import com.thomas.walmarttest.model.Country
 import com.thomas.walmarttest.model.Repository
@@ -13,7 +15,7 @@ import com.thomas.walmarttest.model.Resource.Loading.succeeded
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class MainViewModel(val repository: Repository): ViewModel() {
+class MainViewModel(private val repository: Repository): ViewModel() {
     private val _countryList = MutableLiveData<Resource<List<Country>>>()
     val countryList: LiveData<Resource<List<Country>>> = _countryList
 
@@ -30,14 +32,14 @@ class MainViewModel(val repository: Repository): ViewModel() {
                 val response = repository.getCountryList()
 
                 if(!response.isSuccessful) {
-                    _countryList.postValue(Resource.Message(response.errorBody()?.string() ?: "Unknown error. Please retry."))
+                    _countryList.postValue(Resource.Message(response.errorBody()?.string() ?: UNKNOWN_ERROR))
                     return@launch
                 }
 
                 val countries = response.body()
 
                 if(countries == null) {
-                    _countryList.postValue(Resource.Message("Empty response from server. Please retry."))
+                    _countryList.postValue(Resource.Message(EMPTY_SERVER_RESPONSE))
                     return@launch
                 }
 

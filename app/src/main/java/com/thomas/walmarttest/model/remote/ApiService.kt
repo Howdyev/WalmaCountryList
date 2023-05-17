@@ -13,6 +13,4 @@ interface ApiService {
     companion object {
         fun getInstance(): ApiService = ApiClient.retrofit.create(ApiService::class.java)
     }
-
-
 }

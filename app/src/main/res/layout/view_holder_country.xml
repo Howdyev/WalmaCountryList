@@ -13,7 +13,6 @@
         android:padding="@dimen/x2">
         <TextView
             tools:text="AU"
-
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/tv_country_code"

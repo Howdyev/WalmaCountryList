@@ -5,4 +5,5 @@
     <string name="msg_please_wait">Loading country list.\nPlease wait.</string>
     <string name="error_no_internet">No internet connection. Please retry once you are connected to internet.</string>
     <string name="countries">Countries</string>
+    <string name="country_info"> %1$s %2$s</string>
 </resources>
